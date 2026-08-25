@@ -1,36 +1,40 @@
-# 🎮 Ready or Not - S-Rang Checkliste
+# 🎮 Ready or Not - S-Rank Checklist
 
-Eine interaktive Checkliste zum Tracken deines Fortschritts beim S-Rang aller 29 Missionen in **Ready or Not**.
+An interactive checklist to track your progress toward S-ranking all 29 missions in **Ready or Not**.
+
+**Languages:** [English](README.md) | [Deutsch](README-de.md)
 
 ## ✨ Features
 
-- ✅ **29 Missionen** - Alle Missionen inkl. DLCs
-- 📊 **Live-Fortschritt** - Statistiken und Balkenleiste
-- 💾 **Auto-Speicher** - Daten werden lokal im Browser gespeichert
-- 🎯 **Kategorisiert** - Sortiert nach Kampagne & DLC
-- 💡 **Tipps** - Für besonders knifflige Missionen
-- 📱 **Responsive** - Funktioniert auf Desktop, Tablet & Mobile
-- ⚡ **Offline** - Funktioniert ohne Internetverbindung
+- ✅ **29 Missions** - All missions including DLCs
+- 📊 **Live Progress** - Statistics and progress bar
+- 💾 **Auto-Save** - Data is saved locally in your browser
+- 🎯 **Categorized** - Organized by campaign & DLC
+- 💡 **Tips** - Hints for particularly challenging missions (hidden as spoilers)
+- 🌐 **Bilingual** - Switch between English and German
+- 🌙 **Dark Mode** - Comfortable dark theme
+- 📱 **Responsive** - Works on desktop, tablet & mobile
+- ⚡ **Offline** - Works without internet connection
 
-## 🚀 Verwendung
+## 🚀 Usage
 
 ### Online (GitHub Pages)
-Öffne die Website direkt im Browser - keine Installation nötig!
+Open the website directly in your browser - no installation needed!
 
 **URL:** `https://username.github.io/ready-or-not-s-rang-checklist`
 
-### Lokal
+### Locally
 ```bash
-# Repository clonen
+# Clone the repository
 git clone https://github.com/username/ready-or-not-s-rang-checklist.git
 cd ready-or-not-s-rang-checklist
 
-# Mit Live Server öffnen (VS Code Extension) oder einfach index.html im Browser öffnen
+# Open with Live Server (VS Code Extension) or simply open index.html in your browser
 ```
 
-## 📋 Missionen
+## 📋 Missions
 
-### Hauptkampagne (18)
+### Main Campaign (18)
 Thank You, Come Again • 23 Megabytes A Second • Twisted Nerve • The Spider • A Lethal Obsession • Ides of March • Sinuous Trail • Ends of the Earth • Greased Palms • Valley of the Dolls • Elephant • Rust Belt • Sins of the Father • Neon Tomb • Buy Cheap, Buy Twice • Carriers of the Vine • Relapse • Hide and Seek
 
 ### Home Invasion DLC (3)
@@ -45,62 +49,72 @@ Mirage at Sea • Leviathan • 3 Letter Triad
 ### Boiling Point DLC (3)
 No Good Deed • All Gods Burn • A New America
 
-## 💾 Datenspeicherung
+## 💾 Data Storage
 
-Die Checkliste speichert deine Fortschritte automatisch im **Browser-Speicher (localStorage)**:
-- Geräte-spezifisch (nicht synchronisiert zwischen Geräten)
-- Persönlich (keiner außer dir sieht deine Daten)
-- Länger speicherbar (bis du den Cache löschst)
+The checklist automatically saves your progress in **browser storage (localStorage)**:
+- Device-specific (not synced between devices)
+- Personal (only you can see your data)
+- Persistent (until you clear your browser cache)
 
-**Daten exportieren:** Kopiere den Quellcode aus der Browser-Konsole:
+**Export your data:** Copy from the browser console:
 ```javascript
 localStorage.getItem('ron-s-rang-data')
 ```
 
-## 🔧 Entwicklung
+## 🔧 Development
 
-Änderungen direkt in `index.html` vornehmen. Die Datei ist selbstständig und benötigt keine Build-Tools.
+Make changes directly in `index.html`. The file is self-contained and requires no build tools.
 
-### Missionen hinzufügen
-Im `<script>`-Bereich, in dem `missions` definiert ist:
+### Adding Missions
+In the `<script>` section where `missions` is defined:
 ```javascript
 { 
   id: 30, 
-  name: 'Missionsname', 
-  map: 'Map-Name', 
-  category: 'Kategorie', 
+  name: 'Mission Name', 
+  map: 'Map Name', 
+  category: 'Category', 
   difficulty: 'easy|medium|hard', 
-  tip: 'Optionaler Tipp oder null'
+  tip: 'Optional tip or null'
 }
 ```
 
-## 🤝 Zusammenarbeit
+### Adding Translations
+Edit the `translations` object in the `<script>` section to add new languages or update existing translations.
 
-Du kannst anderen GitHub-Nutzern Zugriff geben:
+## 🤝 Collaboration
 
-### Collaborators hinzufügen (Privates Repo)
-1. Gehe zu deinem Repository auf GitHub
-2. **Settings** → **Collaborators** (oder **Collaborators and teams**)
-3. Klicke **Add people**
-4. Gib GitHub-Username, E-Mail oder vollständigen Namen ein
-5. Wähle die Berechtigung (Push access recommended)
-6. Die Person erhält eine Einladung
+You can grant other GitHub users access to this repository:
 
-### Verschiedene Berechtigungsstufen
-- **Pull**: Nur lesen
-- **Push**: Lesen + Bearbeiten (empfohlen für Collaborators)
-- **Admin**: Alles, inklusive Settings
+### Adding Collaborators (Private Repo)
+1. Go to your repository on GitHub
+2. **Settings** → **Collaborators and teams** (or **Collaborators**)
+3. Click **Add people**
+4. Enter the GitHub username, email, or full name
+5. Choose the permission level (Push access recommended)
+6. They will receive an invitation by email
 
-## 📝 Lizenz
+### Permission Levels
+- **Pull**: Read only
+- **Push**: Read + Edit (recommended for collaborators)
+- **Admin**: Full access, including settings
 
-Frei verwendbar - gerne auch modifizieren und teilen!
+## 📝 License
 
-## 🐛 Probleme?
+Free to use - feel free to modify and share!
 
-- **Fortschritt weg?** → Browser-Cache wurde geleert (localStorage)
-- **Styling fehlerhaft?** → Browser-Cache leeren (Strg+Shift+Del)
-- **Funktioniert nicht?** → JavaScript muss aktiviert sein
+## 🌐 Languages
+
+- 🇬🇧 **English** - [README.md](README.md) (main)
+- 🇩🇪 **Deutsch** - [README-de.md](README-de.md)
+
+Switch languages in the app using the 🌐 button in the top right corner.
+
+## 🐛 Troubleshooting
+
+- **Progress disappeared?** → Your browser cache was cleared (localStorage)
+- **Styling looks broken?** → Clear your browser cache (Ctrl+Shift+Del)
+- **Nothing works?** → Make sure JavaScript is enabled
 
 ---
 
-**Made with ❤️ für Ready or Not S-Rang Enthusiasten**
+**Made with ❤️ for Ready or Not S-Rank enthusiasts**
