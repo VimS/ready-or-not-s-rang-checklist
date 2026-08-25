@@ -369,22 +369,22 @@
 <body>
   <div class="container">
     <header>
-      <h1>🎮 Ready or Not - S-Rang Checkliste</h1>
-      <p class="subtitle">Verfolge deinen Fortschritt beim S-Rang aller Missionen</p>
+      <h1 id="page-title"></h1>
+      <p class="subtitle" id="page-subtitle"></p>
     </header>
 
     <div class="stats">
       <div class="stat-card">
         <div class="stat-number" id="completed-num">0</div>
-        <div class="stat-label">Abgehakt</div>
+        <div class="stat-label" id="label-completed">Abgehakt</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" id="total-num">29</div>
-        <div class="stat-label">Missionen</div>
+        <div class="stat-label" id="label-total">Missionen</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" id="percentage-num">0%</div>
-        <div class="stat-label">Fortschritt</div>
+        <div class="stat-label" id="label-progress">Fortschritt</div>
       </div>
     </div>
 
@@ -395,18 +395,94 @@
     <div id="missions-container"></div>
 
     <div class="controls">
-      <button class="btn-primary" onclick="selectAll()">✓ Alle abhaken</button>
-      <button class="btn-secondary" onclick="deselectAll()">✗ Alle löschen</button>
-      <button class="btn-danger" onclick="resetData()">🔄 Zurücksetzen</button>
+      <button class="btn-primary" id="btn-selectall" onclick="selectAll()"></button>
+      <button class="btn-secondary" id="btn-deselectall" onclick="deselectAll()"></button>
+      <button class="btn-danger" id="btn-reset" onclick="resetData()"></button>
       <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+      <button class="theme-toggle" id="lang-toggle" onclick="toggleLanguage()">🌐 English</button>
     </div>
 
     <footer>
-      <p>Erstellt mit ❤️ • Speichert Daten lokal im Browser (localStorage)</p>
+      <p id="footer-text">Erstellt mit ❤️ • Speichert Daten lokal im Browser (localStorage)</p>
     </footer>
   </div>
 
   <script>
+    // Übersetzungen
+    const translations = {
+      de: {
+        title: '🎮 Ready or Not - S-Rang Checkliste',
+        subtitle: 'Verfolge deinen Fortschritt beim S-Rang aller Missionen',
+        completed: 'Abgehakt',
+        total: 'Missionen',
+        progress: 'Fortschritt',
+        spoiler: 'SPOILER - Klick zum Anzeigen',
+        tip: '💡 ',
+        selectAll: '✓ Alle abhaken',
+        deselectAll: '✗ Alle löschen',
+        reset: '🔄 Zurücksetzen',
+        resetConfirm: '🔄 Willst du wirklich alle Daten zurücksetzen?',
+        footer: 'Erstellt mit ❤️ • Speichert Daten lokal im Browser (localStorage)',
+        categories: {
+          'Hauptkampagne': '🎮 Hauptkampagne',
+          'Home Invasion DLC': '🏘️ Home Invasion DLC',
+          'Los Sueños Stories': '🌆 Los Sueños Stories',
+          'Dark Waters DLC': '🌊 Dark Waters DLC',
+          'Boiling Point DLC': '🔥 Boiling Point DLC'
+        },
+        difficulties: {
+          'easy': 'Einstieg',
+          'medium': 'Mittel',
+          'hard': 'Schwierig'
+        },
+        mapLabel: 'Karte: '
+      },
+      en: {
+        title: '🎮 Ready or Not - S-Rank Checklist',
+        subtitle: 'Track your progress to S-rank all missions',
+        completed: 'Completed',
+        total: 'Missions',
+        progress: 'Progress',
+        spoiler: 'SPOILER - Click to reveal',
+        tip: '💡 ',
+        selectAll: '✓ Complete all',
+        deselectAll: '✗ Clear all',
+        reset: '🔄 Reset',
+        resetConfirm: '🔄 Are you sure you want to reset all data?',
+        footer: 'Made with ❤️ • Saves data locally in your browser (localStorage)',
+        categories: {
+          'Hauptkampagne': '🎮 Main Campaign',
+          'Home Invasion DLC': '🏘️ Home Invasion DLC',
+          'Los Sueños Stories': '🌆 Los Sueños Stories',
+          'Dark Waters DLC': '🌊 Dark Waters DLC',
+          'Boiling Point DLC': '🔥 Boiling Point DLC'
+        },
+        difficulties: {
+          'easy': 'Introduction',
+          'medium': 'Medium',
+          'hard': 'Hard'
+        },
+        mapLabel: 'Map: '
+      }
+    };
+
+    let currentLanguage;
+
+    function t(key) {
+      const keys = key.split('.');
+      let value = translations[currentLanguage];
+      for (let k of keys) {
+        value = value[k];
+      }
+      return value;
+    }
+
+    function toggleLanguage() {
+      currentLanguage = currentLanguage === 'de' ? 'en' : 'de';
+      localStorage.setItem('ron-language', currentLanguage);
+      location.reload();
+    }
+
     const missions = [
       // Hauptkampagne
       { id: 1, name: 'Thank You, Come Again', map: '4U Gas Station', category: 'Hauptkampagne', difficulty: 'easy', tip: null },
@@ -448,19 +524,25 @@
       { id: 29, name: 'A New America', map: 'City Hall', category: 'Boiling Point DLC', difficulty: 'hard', tip: 'Final-Mission! Terroristen + Bomben. Sehr anspruchsvoll!' }
     ];
 
-    const categoryEmojis = {
-      'Hauptkampagne': '🎮',
-      'Home Invasion DLC': '🏘️',
-      'Los Sueños Stories': '🌆',
-      'Dark Waters DLC': '🌊',
-      'Boiling Point DLC': '🔥'
-    };
-
     function initializePage() {
       loadTheme();
+      updateLabels();
       renderMissions();
       loadData();
       updateProgress();
+    }
+
+    function updateLabels() {
+      document.getElementById('page-title').textContent = t('title');
+      document.getElementById('page-subtitle').textContent = t('subtitle');
+      document.getElementById('label-completed').textContent = t('completed');
+      document.getElementById('label-total').textContent = t('total');
+      document.getElementById('label-progress').textContent = t('progress');
+      document.getElementById('btn-selectall').textContent = t('selectAll');
+      document.getElementById('btn-deselectall').textContent = t('deselectAll');
+      document.getElementById('btn-reset').textContent = t('reset');
+      document.getElementById('footer-text').textContent = t('footer');
+      document.getElementById('lang-toggle').textContent = currentLanguage === 'de' ? '🌐 English' : '🌐 Deutsch';
     }
 
     function toggleTheme() {
@@ -495,7 +577,7 @@
           
           const title = document.createElement('div');
           title.className = 'category-title';
-          title.textContent = `${categoryEmojis[currentCategory] || ''} ${currentCategory}`;
+          title.textContent = t(`categories.${currentCategory}`);
           categoryDiv.appendChild(title);
           
           categoryDiv.id = `category-${currentCategory.replace(/\s+/g, '-')}`;
@@ -526,7 +608,7 @@
         
         const badge = document.createElement('span');
         badge.className = `difficulty-badge difficulty-${mission.difficulty}`;
-        badge.textContent = mission.difficulty === 'easy' ? 'Einstieg' : mission.difficulty === 'medium' ? 'Mittel' : 'Schwierig';
+        badge.textContent = t(`difficulties.${mission.difficulty}`);
         
         titleDiv.appendChild(checkbox);
         titleDiv.appendChild(titleText);
@@ -535,7 +617,7 @@
         
         const mapDiv = document.createElement('div');
         mapDiv.className = 'mission-map';
-        mapDiv.textContent = `Karte: ${mission.map}`;
+        mapDiv.textContent = `${t('mapLabel')}${mission.map}`;
         card.appendChild(mapDiv);
         
         if (mission.tip) {
@@ -546,7 +628,7 @@
             spoilerToggle.classList.toggle('revealed');
             spoilerContent.classList.toggle('revealed');
           };
-          spoilerToggle.innerHTML = '<span class="spoiler-arrow">▶</span> <span>SPOILER - Klick zum Anzeigen</span>';
+          spoilerToggle.innerHTML = `<span class="spoiler-arrow">▶</span> <span>${t('spoiler')}</span>`;
           card.appendChild(spoilerToggle);
 
           const spoilerContent = document.createElement('div');
@@ -626,13 +708,14 @@
     }
 
     function resetData() {
-      if (confirm('🔄 Willst du wirklich alle Daten zurücksetzen?')) {
+      if (confirm(t('resetConfirm'))) {
         localStorage.removeItem('ron-s-rang-data');
         deselectAll();
       }
     }
 
     // Initialize
+    currentLanguage = localStorage.getItem('ron-language') || 'de';
     initializePage();
   </script>
 </body>
