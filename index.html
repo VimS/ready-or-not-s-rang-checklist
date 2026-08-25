@@ -26,14 +26,32 @@
       --gray-700: #374151;
       --gray-800: #1f2937;
       --gray-900: #111827;
+
+      /* Light Mode */
+      --bg-primary: var(--gray-50);
+      --bg-card: white;
+      --text-primary: var(--gray-900);
+      --text-secondary: var(--gray-600);
+      --border-color: var(--gray-200);
+      --border-hover: var(--primary);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --border-hover: #60a5fa;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: var(--gray-50);
-      color: var(--gray-900);
+      background: var(--bg-primary);
+      color: var(--text-primary);
       line-height: 1.6;
       padding: 1rem;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     .container {
@@ -66,8 +84,8 @@
     }
 
     .stat-card {
-      background: white;
-      border: 1px solid var(--gray-200);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
@@ -91,7 +109,7 @@
 
     .progress-bar {
       height: 8px;
-      background: var(--gray-200);
+      background: var(--border-color);
       border-radius: 4px;
       overflow: hidden;
       margin-bottom: 1rem;
@@ -113,16 +131,16 @@
       font-weight: 600;
       margin-bottom: 1rem;
       padding-bottom: 0.75rem;
-      border-bottom: 2px solid var(--gray-300);
-      color: var(--gray-900);
+      border-bottom: 2px solid var(--border-color);
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
     .mission-card {
-      background: white;
-      border: 1px solid var(--gray-200);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 1rem;
       margin-bottom: 0.75rem;
@@ -132,17 +150,16 @@
 
     .mission-card:hover {
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      border-color: var(--primary);
+      border-color: var(--border-hover);
     }
 
     .mission-card.completed {
-      background: var(--gray-50);
-      opacity: 0.7;
+      opacity: 0.6;
     }
 
     .mission-card.completed .mission-title {
       text-decoration: line-through;
-      color: var(--gray-500);
+      color: var(--text-secondary);
     }
 
     .mission-title {
@@ -170,9 +187,45 @@
 
     .mission-map {
       font-size: 13px;
-      color: var(--gray-500);
+      color: var(--text-secondary);
       margin-left: 28px;
       font-style: italic;
+    }
+
+    .spoiler-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: 28px;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary);
+      user-select: none;
+    }
+
+    .spoiler-toggle:hover {
+      opacity: 0.8;
+    }
+
+    .spoiler-toggle.revealed .spoiler-arrow {
+      transform: rotate(90deg);
+    }
+
+    .spoiler-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    .spoiler-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .spoiler-content.revealed {
+      max-height: 500px;
     }
 
     .difficulty-badge {
@@ -202,14 +255,13 @@
     }
 
     .tip {
-      background: #fef3c7;
+      background: rgba(245, 158, 11, 0.1);
       border-left: 3px solid var(--warning);
       padding: 0.75rem;
-      margin-left: 28px;
       margin-top: 0.5rem;
       border-radius: 4px;
       font-size: 13px;
-      color: #78350f;
+      color: var(--warning);
       line-height: 1.4;
     }
 
@@ -218,8 +270,25 @@
       gap: 0.5rem;
       margin-top: 2rem;
       padding-top: 2rem;
-      border-top: 2px solid var(--gray-200);
+      border-top: 2px solid var(--border-color);
       flex-wrap: wrap;
+    }
+
+    .theme-toggle {
+      margin-left: auto;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-primary);
     }
 
     button {
@@ -244,12 +313,13 @@
     }
 
     .btn-secondary {
-      background: var(--gray-200);
-      color: var(--gray-900);
+      background: var(--border-color);
+      color: var(--text-primary);
     }
 
     .btn-secondary:hover {
-      background: var(--gray-300);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-hover);
     }
 
     .btn-danger {
@@ -265,9 +335,9 @@
       text-align: center;
       margin-top: 3rem;
       padding-top: 2rem;
-      border-top: 1px solid var(--gray-200);
+      border-top: 1px solid var(--border-color);
       font-size: 12px;
-      color: var(--gray-500);
+      color: var(--text-secondary);
     }
 
     @media (max-width: 768px) {
@@ -328,6 +398,7 @@
       <button class="btn-primary" onclick="selectAll()">✓ Alle abhaken</button>
       <button class="btn-secondary" onclick="deselectAll()">✗ Alle löschen</button>
       <button class="btn-danger" onclick="resetData()">🔄 Zurücksetzen</button>
+      <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
     </div>
 
     <footer>
@@ -386,9 +457,30 @@
     };
 
     function initializePage() {
+      loadTheme();
       renderMissions();
       loadData();
       updateProgress();
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const button = document.querySelector('.theme-toggle');
+      const currentTheme = html.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      html.setAttribute('data-theme', newTheme);
+      button.textContent = newTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+      localStorage.setItem('ron-theme', newTheme);
+    }
+
+    function loadTheme() {
+      const saved = localStorage.getItem('ron-theme') || 'light';
+      const html = document.documentElement;
+      const button = document.querySelector('.theme-toggle');
+      
+      html.setAttribute('data-theme', saved);
+      button.textContent = saved === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
     }
 
     function renderMissions() {
@@ -447,10 +539,23 @@
         card.appendChild(mapDiv);
         
         if (mission.tip) {
+          const spoilerToggle = document.createElement('div');
+          spoilerToggle.className = 'spoiler-toggle';
+          spoilerToggle.onclick = (e) => {
+            e.stopPropagation();
+            spoilerToggle.classList.toggle('revealed');
+            spoilerContent.classList.toggle('revealed');
+          };
+          spoilerToggle.innerHTML = '<span class="spoiler-arrow">▶</span> <span>SPOILER - Klick zum Anzeigen</span>';
+          card.appendChild(spoilerToggle);
+
+          const spoilerContent = document.createElement('div');
+          spoilerContent.className = 'spoiler-content';
           const tipDiv = document.createElement('div');
           tipDiv.className = 'tip';
           tipDiv.textContent = '💡 ' + mission.tip;
-          card.appendChild(tipDiv);
+          spoilerContent.appendChild(tipDiv);
+          card.appendChild(spoilerContent);
         }
         
         categoryDiv.appendChild(card);
