@@ -68,12 +68,12 @@
       font-size: 28px;
       font-weight: 700;
       margin-bottom: 0.5rem;
-      color: var(--gray-900);
+      color: var(--text-primary);
     }
 
     .subtitle {
       font-size: 14px;
-      color: var(--gray-500);
+      color: var(--text-secondary);
     }
 
     .stats {
@@ -101,7 +101,7 @@
 
     .stat-label {
       font-size: 12px;
-      color: var(--gray-500);
+      color: var(--text-secondary);
       margin-top: 0.5rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -192,6 +192,72 @@
       font-style: italic;
     }
 
+    .mission-checkboxes {
+      display: flex;
+      gap: 1.5rem;
+      margin-left: 28px;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .checkbox-group input {
+      accent-color: var(--success);
+      cursor: pointer;
+    }
+
+    .checkbox-group label {
+      cursor: pointer;
+    }
+
+    .difficulty-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-left: auto;
+    }
+
+    .difficulty-easy {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .difficulty-medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .difficulty-hard {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    [data-theme="dark"] .difficulty-easy {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+    }
+
+    [data-theme="dark"] .difficulty-medium {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fcd34d;
+    }
+
+    [data-theme="dark"] .difficulty-hard {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+    }
+
     .spoiler-toggle {
       display: flex;
       align-items: center;
@@ -228,32 +294,6 @@
       max-height: 500px;
     }
 
-    .difficulty-badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 3px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      margin-left: auto;
-    }
-
-    .difficulty-easy {
-      background: #d1fae5;
-      color: #065f46;
-    }
-
-    .difficulty-medium {
-      background: #fef3c7;
-      color: #92400e;
-    }
-
-    .difficulty-hard {
-      background: #fee2e2;
-      color: #991b1b;
-    }
-
     .tip {
       background: rgba(245, 158, 11, 0.1);
       border-left: 3px solid var(--warning);
@@ -272,23 +312,6 @@
       padding-top: 2rem;
       border-top: 2px solid var(--border-color);
       flex-wrap: wrap;
-    }
-
-    .theme-toggle {
-      margin-left: auto;
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border-color);
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border-radius: 6px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .theme-toggle:hover {
-      border-color: var(--border-hover);
-      background: var(--bg-primary);
     }
 
     button {
@@ -331,6 +354,23 @@
       background: #dc2626;
     }
 
+    .theme-toggle {
+      margin-left: auto;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-primary);
+    }
+
     footer {
       text-align: center;
       margin-top: 3rem;
@@ -356,6 +396,11 @@
         width: fit-content;
       }
 
+      .mission-checkboxes {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
       .controls {
         flex-direction: column;
       }
@@ -375,16 +420,16 @@
 
     <div class="stats">
       <div class="stat-card">
-        <div class="stat-number" id="completed-num">0</div>
-        <div class="stat-label" id="label-completed">Abgehakt</div>
+        <div class="stat-number" id="s-rank-num">0</div>
+        <div class="stat-label" id="label-s-rank">S-Rang</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="higher-num">0</div>
+        <div class="stat-label" id="label-higher">Höhere Schwierigkeiten</div>
       </div>
       <div class="stat-card">
         <div class="stat-number" id="total-num">29</div>
         <div class="stat-label" id="label-total">Missionen</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" id="percentage-num">0%</div>
-        <div class="stat-label" id="label-progress">Fortschritt</div>
       </div>
     </div>
 
@@ -403,7 +448,7 @@
     </div>
 
     <footer>
-      <p id="footer-text">Erstellt mit ❤️ • Speichert Daten lokal im Browser (localStorage)</p>
+      <p id="footer-text"></p>
     </footer>
   </div>
 
@@ -413,7 +458,8 @@
       de: {
         title: '🎮 Ready or Not - S-Rang Checkliste',
         subtitle: 'Verfolge deinen Fortschritt beim S-Rang aller Missionen',
-        completed: 'Abgehakt',
+        s_rank: 'S-Rang',
+        higher_difficulties: 'Höhere Schwierigkeiten',
         total: 'Missionen',
         progress: 'Fortschritt',
         spoiler: 'SPOILER - Klick zum Anzeigen',
@@ -440,7 +486,8 @@
       en: {
         title: '🎮 Ready or Not - S-Rank Checklist',
         subtitle: 'Track your progress to S-rank all missions',
-        completed: 'Completed',
+        s_rank: 'S-Rank',
+        higher_difficulties: 'Higher Difficulties',
         total: 'Missions',
         progress: 'Progress',
         spoiler: 'SPOILER - Click to reveal',
@@ -535,9 +582,9 @@
     function updateLabels() {
       document.getElementById('page-title').textContent = t('title');
       document.getElementById('page-subtitle').textContent = t('subtitle');
-      document.getElementById('label-completed').textContent = t('completed');
+      document.getElementById('label-s-rank').textContent = t('s_rank');
+      document.getElementById('label-higher').textContent = t('higher_difficulties');
       document.getElementById('label-total').textContent = t('total');
-      document.getElementById('label-progress').textContent = t('progress');
       document.getElementById('btn-selectall').textContent = t('selectAll');
       document.getElementById('btn-deselectall').textContent = t('deselectAll');
       document.getElementById('btn-reset').textContent = t('reset');
@@ -545,28 +592,9 @@
       document.getElementById('lang-toggle').textContent = currentLanguage === 'de' ? '🌐 English' : '🌐 Deutsch';
     }
 
-    function toggleTheme() {
-      const html = document.documentElement;
-      const button = document.querySelector('.theme-toggle');
-      const currentTheme = html.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      
-      html.setAttribute('data-theme', newTheme);
-      button.textContent = newTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
-      localStorage.setItem('ron-theme', newTheme);
-    }
-
-    function loadTheme() {
-      const saved = localStorage.getItem('ron-theme') || 'light';
-      const html = document.documentElement;
-      const button = document.querySelector('.theme-toggle');
-      
-      html.setAttribute('data-theme', saved);
-      button.textContent = saved === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
-    }
-
     function renderMissions() {
       const container = document.getElementById('missions-container');
+      container.innerHTML = '';
       let currentCategory = '';
 
       missions.forEach(mission => {
@@ -593,16 +621,6 @@
         const titleDiv = document.createElement('div');
         titleDiv.className = 'mission-title';
         
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.className = 'mission-checkbox';
-        checkbox.dataset.id = mission.id;
-        checkbox.onchange = () => {
-          updateProgress();
-          saveData();
-          updateCardAppearance(mission.id);
-        };
-        
         const titleText = document.createElement('span');
         titleText.textContent = mission.name;
         
@@ -610,7 +628,6 @@
         badge.className = `difficulty-badge difficulty-${mission.difficulty}`;
         badge.textContent = t(`difficulties.${mission.difficulty}`);
         
-        titleDiv.appendChild(checkbox);
         titleDiv.appendChild(titleText);
         titleDiv.appendChild(badge);
         card.appendChild(titleDiv);
@@ -619,6 +636,58 @@
         mapDiv.className = 'mission-map';
         mapDiv.textContent = `${t('mapLabel')}${mission.map}`;
         card.appendChild(mapDiv);
+
+        // Checkboxes Gruppe
+        const checkboxGroup = document.createElement('div');
+        checkboxGroup.className = 'mission-checkboxes';
+
+        // S-Rank Checkbox
+        const sRankGroup = document.createElement('div');
+        sRankGroup.className = 'checkbox-group';
+
+        const sRankCheckbox = document.createElement('input');
+        sRankCheckbox.type = 'checkbox';
+        sRankCheckbox.className = 'mission-checkbox';
+        sRankCheckbox.dataset.id = mission.id;
+        sRankCheckbox.dataset.type = 'srank';
+        sRankCheckbox.onchange = () => {
+          updateProgress();
+          saveData();
+          updateCardAppearance(mission.id);
+        };
+
+        const sRankLabel = document.createElement('label');
+        sRankLabel.textContent = t('s_rank');
+        sRankLabel.style.cursor = 'pointer';
+
+        sRankGroup.appendChild(sRankCheckbox);
+        sRankGroup.appendChild(sRankLabel);
+        checkboxGroup.appendChild(sRankGroup);
+
+        // Höhere Schwierigkeiten Checkbox
+        const higherGroup = document.createElement('div');
+        higherGroup.className = 'checkbox-group';
+
+        const higherCheckbox = document.createElement('input');
+        higherCheckbox.type = 'checkbox';
+        higherCheckbox.className = 'mission-checkbox';
+        higherCheckbox.dataset.id = mission.id;
+        higherCheckbox.dataset.type = 'higher';
+        higherCheckbox.onchange = () => {
+          updateProgress();
+          saveData();
+          updateCardAppearance(mission.id);
+        };
+
+        const higherLabel = document.createElement('label');
+        higherLabel.textContent = t('higher_difficulties');
+        higherLabel.style.cursor = 'pointer';
+
+        higherGroup.appendChild(higherCheckbox);
+        higherGroup.appendChild(higherLabel);
+        checkboxGroup.appendChild(higherGroup);
+
+        card.appendChild(checkboxGroup);
         
         if (mission.tip) {
           const spoilerToggle = document.createElement('div');
@@ -635,7 +704,7 @@
           spoilerContent.className = 'spoiler-content';
           const tipDiv = document.createElement('div');
           tipDiv.className = 'tip';
-          tipDiv.textContent = '💡 ' + mission.tip;
+          tipDiv.textContent = t('tip') + mission.tip;
           spoilerContent.appendChild(tipDiv);
           card.appendChild(spoilerContent);
         }
@@ -645,9 +714,11 @@
     }
 
     function updateCardAppearance(missionId) {
-      const checkbox = document.querySelector(`input[data-id="${missionId}"]`);
+      const sRankCheckbox = document.querySelector(`input[data-id="${missionId}"][data-type="srank"]`);
+      const higherCheckbox = document.querySelector(`input[data-id="${missionId}"][data-type="higher"]`);
       const card = document.getElementById(`mission-${missionId}`);
-      if (checkbox.checked) {
+      
+      if (sRankCheckbox.checked && higherCheckbox.checked) {
         card.classList.add('completed');
       } else {
         card.classList.remove('completed');
@@ -655,33 +726,53 @@
     }
 
     function updateProgress() {
-      const checkboxes = document.querySelectorAll('.mission-checkbox');
-      const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
-      const total = checkboxes.length;
+      const sRankCheckboxes = document.querySelectorAll('input[data-type="srank"]');
+      const higherCheckboxes = document.querySelectorAll('input[data-type="higher"]');
       
-      document.getElementById('completed-num').textContent = checked;
-      document.getElementById('total-num').textContent = total;
+      const sRankCount = Array.from(sRankCheckboxes).filter(cb => cb.checked).length;
+      const higherCount = Array.from(higherCheckboxes).filter(cb => cb.checked).length;
       
-      const percentage = total > 0 ? Math.round((checked / total) * 100) : 0;
-      document.getElementById('percentage-num').textContent = percentage + '%';
+      document.getElementById('s-rank-num').textContent = sRankCount;
+      document.getElementById('higher-num').textContent = higherCount;
+      document.getElementById('total-num').textContent = missions.length;
       
+      // Fortschritt basiert auf S-Rank
+      const percentage = missions.length > 0 ? Math.round((sRankCount / missions.length) * 100) : 0;
       const progressFill = document.getElementById('progressFill');
       progressFill.style.width = percentage + '%';
     }
 
     function saveData() {
-      const checkboxes = document.querySelectorAll('.mission-checkbox');
-      const data = Array.from(checkboxes).map(cb => cb.checked);
-      localStorage.setItem('ron-s-rang-data', JSON.stringify(data));
+      const sRankCheckboxes = document.querySelectorAll('input[data-type="srank"]');
+      const higherCheckboxes = document.querySelectorAll('input[data-type="higher"]');
+      
+      const sRankData = Array.from(sRankCheckboxes).map(cb => cb.checked);
+      const higherData = Array.from(higherCheckboxes).map(cb => cb.checked);
+      
+      localStorage.setItem('ron-s-rank-data', JSON.stringify(sRankData));
+      localStorage.setItem('ron-higher-diff-data', JSON.stringify(higherData));
     }
 
     function loadData() {
-      const saved = localStorage.getItem('ron-s-rang-data');
-      if (saved) {
-        const data = JSON.parse(saved);
-        const checkboxes = document.querySelectorAll('.mission-checkbox');
-        checkboxes.forEach((cb, i) => {
-          if (data[i]) {
+      const sRankSaved = localStorage.getItem('ron-s-rank-data');
+      const higherSaved = localStorage.getItem('ron-higher-diff-data');
+      
+      if (sRankSaved) {
+        const sRankData = JSON.parse(sRankSaved);
+        const sRankCheckboxes = document.querySelectorAll('input[data-type="srank"]');
+        sRankCheckboxes.forEach((cb, i) => {
+          if (sRankData[i]) {
+            cb.checked = true;
+            updateCardAppearance(parseInt(cb.dataset.id));
+          }
+        });
+      }
+      
+      if (higherSaved) {
+        const higherData = JSON.parse(higherSaved);
+        const higherCheckboxes = document.querySelectorAll('input[data-type="higher"]');
+        higherCheckboxes.forEach((cb, i) => {
+          if (higherData[i]) {
             cb.checked = true;
             updateCardAppearance(parseInt(cb.dataset.id));
           }
@@ -690,7 +781,7 @@
     }
 
     function selectAll() {
-      document.querySelectorAll('.mission-checkbox').forEach(cb => {
+      document.querySelectorAll('input[data-type="srank"]').forEach(cb => {
         cb.checked = true;
         updateCardAppearance(parseInt(cb.dataset.id));
       });
@@ -699,7 +790,7 @@
     }
 
     function deselectAll() {
-      document.querySelectorAll('.mission-checkbox').forEach(cb => {
+      document.querySelectorAll('input[data-type="srank"], input[data-type="higher"]').forEach(cb => {
         cb.checked = false;
         updateCardAppearance(parseInt(cb.dataset.id));
       });
@@ -709,9 +800,30 @@
 
     function resetData() {
       if (confirm(t('resetConfirm'))) {
-        localStorage.removeItem('ron-s-rang-data');
+        localStorage.removeItem('ron-s-rank-data');
+        localStorage.removeItem('ron-higher-diff-data');
         deselectAll();
       }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const button = document.querySelector('.theme-toggle');
+      const currentTheme = html.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      html.setAttribute('data-theme', newTheme);
+      button.textContent = newTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
+      localStorage.setItem('ron-theme', newTheme);
+    }
+
+    function loadTheme() {
+      const saved = localStorage.getItem('ron-theme') || 'light';
+      const html = document.documentElement;
+      const button = document.querySelector('.theme-toggle');
+      
+      html.setAttribute('data-theme', saved);
+      button.textContent = saved === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
     }
 
     // Initialize
